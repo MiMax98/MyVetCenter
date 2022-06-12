@@ -1,0 +1,75 @@
+﻿@model VetCenter.Models.Pet
+
+<h1>Szczegóły</h1>
+
+<div>
+    <h4>Zwierzę</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Name
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Species)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Species
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Breed)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Breed
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Owner)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Owner.FirstName @Model.Owner.LastName
+        </dd>
+    </dl>
+
+    <h4>Wizyty <a class="btn btn-primary btn-sm" asp-action="AddVisit" asp-route-id="@Model.PetId">Dodaj wizytę</a></h4>
+
+    @if (Model.Visits.Count == 0)
+    {
+        <div class="alert alert-warning">Brak wizyt</div>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Termin</th>
+                    <th>Opis</th>
+                    <th>Opłata</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var visit in Model.Visits)
+                {
+                    <tr>
+                        <td>@visit.Time</td>
+                        <td>@visit.Description</td>
+                        <td>@visit.Fee</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PetId">Edytuj</a> |
+    <a asp-action="Details" asp-controller="Owners" asp-route-id="@Model.OwnerId">Właściciel</a> |
+    <a asp-action="Index">Lista zwierząt</a>
+</div>

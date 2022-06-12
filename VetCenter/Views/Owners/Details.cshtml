@@ -1,0 +1,50 @@
+﻿@model VetCenter.Models.Owner
+
+<h1>Szczegóły</h1>
+
+<div>
+    <h4>Właściciel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.FirstName
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.LastName
+        </dd>
+    </dl>
+    <h4>Zwierzęta <a class="btn btn-primary btn-sm" asp-action="Create" asp-controller="Pets" asp-route-id="@Model.OwnerId">Dodaj zwierzę</a></h4>
+     <table class="table">
+         <thead>
+             <tr>
+                 <th>Imię</th>
+                 <th>Gatunek</th>
+                 <th>Rasa</th>
+                 <th></th>
+             </tr>
+         </thead>
+         <tbody>
+             @foreach (var pet in Model.Pets)
+             {
+                 <tr>
+                     <td>@pet.Name</td>
+                     <td>@pet.Species</td>
+                     <td>@pet.Breed</td>
+                     <td>
+                         @Html.ActionLink("Szczegóły", "Details", "Pets", new { id = pet.PetId })
+                     </td>
+                 </tr>
+             }
+         </tbody>
+     </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.OwnerId">Edytuj</a> |
+    <a asp-action="Index">Powrót</a>
+</div>
